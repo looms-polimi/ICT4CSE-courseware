@@ -3,9 +3,10 @@ within ICT4CSE_2026.Session_01;
 model HelloWorld
   "Minimal hybrid closed loop: continuous process and digital PI written monolithically"
   extends Modelica.Icons.Example;
+
   parameter Real Ts = 0.1 "Sampling time";
-  parameter Real K = 1 "PI gain";
-  parameter Real Ti = 10 "PI integral time; chosen to cancel the slow process pole";
+  parameter Real K  = 1   "PI gain";
+  parameter Real Ti = 10  "PI integral time";
 
   Real x1(start = 0), x2(start = 0);
   Real y, w;
@@ -18,7 +19,7 @@ protected
 equation
   // P(s) = 1/((1+10s)(1+s))
   x2 + 10*der(x2) = u;
-  x1 + der(x1) = x2;
+  x1 + der(x1)    = x2;
   y = x1;
 
   // Set point
@@ -37,5 +38,7 @@ initial algorithm
   e1 := 0;
 
 annotation(
-  experiment(StartTime = 0, StopTime = 80, Tolerance = 1e-6, Interval = 0.05));
+  experiment(StartTime = 0, StopTime = 80, Tolerance = 1e-06, Interval = 0.05),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
+  __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 end HelloWorld;

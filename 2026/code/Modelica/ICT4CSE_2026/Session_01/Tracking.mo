@@ -29,7 +29,7 @@ model Tracking
     Ts=Ts,
     CSmin=uMin,
     CSmax=uMax,
-    hasBias= false,
+    hasBias= true,
     hasTracking=true,
     hasLocks=false,
     hasOvrMax=false,

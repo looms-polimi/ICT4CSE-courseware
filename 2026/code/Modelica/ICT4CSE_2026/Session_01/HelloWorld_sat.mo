@@ -43,5 +43,7 @@ initial algorithm
   e1 := 0;
 
 annotation(
-  experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-6, Interval = 0.05));
+  experiment(StartTime = 0, StopTime = 100, Tolerance = 1e-06, Interval = 0.05),
+  __OpenModelica_commandLineOptions = "--matchingAlgorithm=PFPlusExt --indexReductionMethod=dynamicStateSelection -d=initialization,NLSanalyticJacobian",
+  __OpenModelica_simulationFlags(lv = "LOG_STDOUT,LOG_ASSERT,LOG_STATS", s = "dassl", variableFilter = ".*"));
 end HelloWorld_sat;
